@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>WatchTogether</title>
+  <link rel="icon" type="image/png" href="/assets/watchtogether-logo.png">
+  <link rel="apple-touch-icon" href="/assets/watchtogether-logo.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section id="landing" class="landing panel">
+      <div class="brand-mark"><img src="/assets/watchtogether-logo.png" alt="WatchTogether logo"></div>
+      <p class="eyebrow">PRIVATE WATCH PARTY</p>
+      <h1>Watch together.<br><span>Feel closer.</span></h1>
+      <p class="intro">Share your screen, watch a video, and talk face-to-face with the people you care about.</p>
+      <div class="landing-grid">
+        <form id="create-form" class="card form-card">
+          <div class="card-icon">+</div>
+          <h2>Create a room</h2>
+          <p>Start a private room and invite up to ten guests.</p>
+          <label for="create-name">Your name</label>
+          <input id="create-name" maxlength="30" placeholder="e.g. Sarang" autocomplete="name" required>
+          <label>Guests allowed to join</label>
+          <input id="guest-limit" type="hidden" value="2">
+          <div class="guest-toggle" role="group" aria-label="Guests allowed to join">
+            <button type="button" data-guests="1">1</button><button type="button" data-guests="2" class="selected">2</button><button type="button" data-guests="3">3</button><button type="button" data-guests="4">4</button><button type="button" data-guests="5">5</button><button type="button" data-guests="6">6</button><button type="button" data-guests="7">7</button><button type="button" data-guests="8">8</button><button type="button" data-guests="9">9</button><button type="button" data-guests="10">10</button>
+          </div>
+          <p class="toggle-help">The host is not included in this number.</p>
+          <button class="primary" type="submit">Create private room <span>→</span></button>
+        </form>
+        <form id="join-form" class="card form-card">
+          <div class="card-icon secondary-icon">↗</div>
+          <h2>Join a room</h2>
+          <p>Enter the room code shared by your host.</p>
+          <label for="join-name">Your name</label>
+          <input id="join-name" maxlength="30" placeholder="e.g. Friend" autocomplete="name" required>
+          <label for="room-code">Room code</label>
+          <input id="room-code" maxlength="6" placeholder="ABC123" autocapitalize="characters" required>
+          <button class="outline" type="submit">Join room <span>→</span></button>
+        </form>
+      </div>
+      <p class="fine-print">No account needed · Rooms disappear when everyone leaves</p>
+    </section>
+
+    <section id="room" class="room panel hidden">
+      <header class="room-header">
+        <div>
+          <div class="brand-small"><span class="brand-mark mini"><img src="/assets/watchtogether-logo.png" alt="WatchTogether logo"></span> WatchTogether</div>
+          <div class="room-title"><span id="room-status-dot"></span><span id="room-title-text">Private room</span></div>
+        </div>
+        <div class="room-actions">
+          <button id="copy-link" class="ghost">Copy invite link</button>
+          <button id="leave-room" class="danger-ghost">Leave</button>
+        </div>
+      </header>
+      <div class="room-layout">
+        <section class="stage">
+          <section id="movie-panel" class="movie-panel hidden">
+            <div class="movie-heading"><div><span class="movie-kicker">SYNCED MOVIE</span><h2>Watch in sync</h2></div><span id="movie-role-note">Host controls playback for everyone.</span></div>
+            <div class="movie-loader"><input id="movie-url" type="url" placeholder="Paste a direct MP4/WebM video URL" autocomplete="off"><button id="load-movie" class="movie-load">Load URL</button><span class="or-divider">or</span><label for="movie-file" class="file-picker">Choose video file</label><input id="movie-file" class="file-input" type="file" accept="video/mp4,video/webm,video/ogg,video/x-matroska,.mp4,.webm,.ogg,.mkv"></div><div id="upload-progress" class="upload-progress hidden"><div><span id="upload-status">Uploading video…</span><strong id="upload-percent">0%</strong></div><progress id="upload-bar" max="100" value="0"></progress></div>
+            <video id="movie-video" class="movie-video" playsinline preload="metadata"></video>
+            <div class="movie-controls"><button id="movie-play" class="movie-play">▶ Play</button><input id="movie-seek" class="movie-seek" type="range" min="0" max="100" value="0" step="0.1"><span id="movie-time">0:00 / 0:00</span></div>
+          </section>
+          <div id="video-grid" class="video-grid">
+            <div id="empty-state" class="empty-state">
+              <div class="empty-icon">◉</div>
+              <h2>Waiting for your friends</h2>
+              <p>Share the invite link, then turn on your camera or start sharing your screen.</p>
+            </div>
+          </div>
+          <div id="host-note" class="host-note hidden"><strong>You are the host.</strong> Use “Share screen” to start the movie.</div>
+          <div class="control-bar">
+            <button id="mic-btn" class="control" title="Toggle microphone">⌕ <span>Mic</span></button>
+            <button id="camera-btn" class="control" title="Toggle camera">▣ <span>Camera</span></button>
+            <button id="screen-btn" class="control screen-control" title="Share your screen">▤ <span>Share screen</span></button>
+            <button id="chat-toggle" class="control chat-control" title="Open chat">☰ <span>Chat</span></button>
+          </div>
+        </section>
+        <aside id="chat-panel" class="chat-panel">
+          <div class="chat-header"><div><strong>Room chat</strong><small id="member-count">1 person</small></div><button id="chat-close" class="icon-button">×</button></div>
+          <div id="chat-messages" class="chat-messages"><div class="system-message">Share the invite link to start watching together.</div></div>
+          <form id="chat-form" class="chat-form"><input id="chat-input" maxlength="500" placeholder="Send a message…"><button type="submit">↑</button></form>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <div id="entry-intro" class="entry-intro hidden" aria-live="polite"><div class="entry-logo"><img src="/assets/watchtogether-logo.png" alt="WatchTogether logo"></div><div class="entry-ring ring-one"></div><div class="entry-ring ring-two"></div><p id="entry-status">Preparing your room…</p><div class="entry-dots"><span></span><span></span><span></span></div></div>
+  <div id="room-full-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="room-full-title">
+    <div class="modal-card"><div class="modal-icon">!</div><h2 id="room-full-title">Room is full</h2><p id="room-full-message">This room has reached the guest limit set by the host.</p><button id="close-room-full" class="primary">Okay</button></div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="/config.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
