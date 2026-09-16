@@ -6,7 +6,7 @@ const state = {
   applyingPlayback: false,
 };
 
-const configuredBackend = String(window.WATCHTOGETHER_BACKEND_URL || '').trim().replace(/\/$/, '');
+const configuredBackend = String(window.WATCHTOGETHER_BACKEND_URL || 'https://watchtogether-backend-6d7x.onrender.com').trim().replace(/\/$/, '');
 function backendHttpUrl(path = '') { return `${configuredBackend}${path}` || path; }
 function backendWebSocketUrl() {
   const base = configuredBackend || location.origin;
